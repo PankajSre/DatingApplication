@@ -1,6 +1,10 @@
 
 testCreateInterestsIsServiceMethodCalled=true
+testGetInterestsByIdIsServiceMethodCalled=true
+testGetInterestsByInterestId=true
+testGetAllInterestsByUserId=true
 testDeleteInterestIsServiceMethodCalled=true
+testGetAllInterestsByUserIdIsServiceMethodCalled=true
 testUpdateInterest=true
 testCreateInterest=true
 testUpdateInterestIsServiceMethodCalled=true

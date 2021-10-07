@@ -1,5 +1,7 @@
 package com.iiht.training.datingapp.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
@@ -56,6 +58,18 @@ public class InterestsServiceImpl implements InterestsService {
 			throw new InterestsNotFoundException("Interest with id " + interestId + " is not found");
 		}
 
+	}
+
+	@Override
+	public List<InterestsDto> getInterestsByUserId(Long userId) {
+		List<Interests> interests = interestsRepository.findByUserId(userId);
+		List<InterestsDto> interestsDtos = new ArrayList<>();
+		for (Interests interest : interests) {
+			InterestsDto interestsDto = new InterestsDto();
+			BeanUtils.copyProperties(interest, interestsDto);
+			interestsDtos.add(interestsDto);
+		}
+		return interestsDtos;
 	}
 
 }

@@ -6,6 +6,8 @@ import static com.iiht.training.datingapp.testutils.TestUtils.testReport;
 import static com.iiht.training.datingapp.testutils.TestUtils.yakshaAssert;
 import static org.mockito.Mockito.when;
 
+import java.util.List;
+
 import org.junit.jupiter.api.AfterAll;
 //import org.junit.Test;
 //import org.junit.jupiter.api.BeforeAll;
@@ -165,6 +167,83 @@ public class InterestsRestControllerTest {
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.put("/interests")
 				.content(MasterData.asJsonString(interestsDto)).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		yakshaAssert(currentTest(), count[0] == 1 ? true : false, businessTestFile);
+
+	}
+
+	@Test
+	public void testGetInterestsByInterestId() throws Exception {
+		InterestsDto interestsDto = MasterData.getInterestsDto();
+
+		when(this.interestsService.getById(1L)).thenReturn(interestsDto);
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/interests/1")
+				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+		yakshaAssert(currentTest(),
+				(result.getResponse().getContentAsString().contentEquals(MasterData.asJsonString(interestsDto)) ? "true"
+						: "false"),
+				businessTestFile);
+
+	}
+
+	@Test
+	public void testGetInterestsByIdIsServiceMethodCalled() throws Exception {
+		final int count[] = new int[1];
+		InterestsDto interestsDto = MasterData.getInterestsDto();
+		when(this.interestsService.getById(1L)).then(new Answer<InterestsDto>() {
+
+			@Override
+			public InterestsDto answer(InvocationOnMock invocation) throws Throwable {
+				// TODO Auto-generated method stub
+				count[0]++;
+				return interestsDto;
+			}
+		});
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/interests/1")
+				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		yakshaAssert(currentTest(), count[0] == 1 ? true : false, businessTestFile);
+
+	}
+
+	@Test
+	public void testGetAllInterestsByUserId() throws Exception {
+		List<InterestsDto> interestsDtos = MasterData.getInterestsDtoList();
+
+		when(this.interestsService.getInterestsByUserId(1L)).thenReturn(interestsDtos);
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/interests/by-user-id/1")
+				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+		yakshaAssert(currentTest(),
+				(result.getResponse().getContentAsString().contentEquals(MasterData.asJsonString(interestsDtos))
+						? "true"
+						: "false"),
+				businessTestFile);
+
+	}
+
+	@Test
+	public void testGetAllInterestsByUserIdIsServiceMethodCalled() throws Exception {
+		final int count[] = new int[1];
+		List<InterestsDto> interestsDtos = MasterData.getInterestsDtoList();
+		when(this.interestsService.getInterestsByUserId(1L)).then(new Answer<List<InterestsDto>>() {
+
+			@Override
+			public List<InterestsDto> answer(InvocationOnMock invocation) throws Throwable {
+				// TODO Auto-generated method stub
+				count[0]++;
+				return interestsDtos;
+			}
+		});
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/interests/by-user-id/1")
+				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 

@@ -1,5 +1,6 @@
 package com.iiht.training.datingapp.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -56,6 +57,12 @@ public class InterestsRestController {
 	public ResponseEntity<InterestsDto> getInterestsById(@PathVariable Long interestId) {
 		InterestsDto interestDto = interestsService.getById(interestId);
 		return ResponseEntity.ok(interestDto);
+	}
+
+	@GetMapping("/by-user-id/{userId}")
+	public ResponseEntity<List<InterestsDto>> getInterestsByUserId(@PathVariable Long userId) {
+		List<InterestsDto> interestsByUserId = interestsService.getInterestsByUserId(userId);
+		return ResponseEntity.ok(interestsByUserId);
 	}
 
 }
