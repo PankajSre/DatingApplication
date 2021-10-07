@@ -162,7 +162,7 @@ public class InterestsRestControllerTest {
 				return savedInterestsDto;
 			}
 		});
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.put("/users")
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.put("/interests")
 				.content(MasterData.asJsonString(interestsDto)).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON);
 

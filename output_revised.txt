@@ -1,2 +1,7 @@
 
-testDeleteUser=true
+testCreateInterestsIsServiceMethodCalled=true
+testDeleteInterestIsServiceMethodCalled=true
+testUpdateInterest=true
+testCreateInterest=true
+testUpdateInterestIsServiceMethodCalled=true
+testDeleteInterest=true

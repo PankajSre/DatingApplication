@@ -244,27 +244,14 @@ public class BoundaryTest {
 	}
 
 	@Test
-	public void testInterestsHobbiesMinOne() throws Exception {
+	public void testInterestsHobbiesNotNull() throws Exception {
 		InterestsDto interestsDto = MasterData.getInterestsDto();
 		interestsDto.setHobbies(null);
 		Set<ConstraintViolation<InterestsDto>> violations = validator.validate(interestsDto);
 		yakshaAssert(currentTest(), !violations.isEmpty() ? true : false, boundaryTestFile);
 	}
 
-	@Test
-	public void testInterestsHobbiesMaxFive() throws Exception {
-		InterestsDto interestsDto = MasterData.getInterestsDto();
-		List<String> hobbies = new ArrayList<>();
-		hobbies.add("Reading");
-		hobbies.add("Playing");
-		hobbies.add("Listening Music");
-		hobbies.add("Playing Games");
-		hobbies.add("Bike Riding");
-		hobbies.add("Sleeping");
-		interestsDto.setHobbies(hobbies);
-		Set<ConstraintViolation<InterestsDto>> violations = validator.validate(interestsDto);
-		yakshaAssert(currentTest(), !violations.isEmpty() ? true : false, boundaryTestFile);
-	}
+	
 
 	@Test
 	public void testInterestsProfileUrlNotNull() throws Exception {

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.ElementCollection;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -21,6 +22,7 @@ public class InterestsDto {
 	@NotBlank
 	@Length(min = 3, max = 100)
 	private String notInterestedIn;
+	@NotNull
 	private List<String> hobbies;
 	@NotBlank
 	private String profileUrl;
@@ -103,6 +105,5 @@ public class InterestsDto {
 				&& Objects.equals(notInterestedIn, other.notInterestedIn)
 				&& Objects.equals(profileUrl, other.profileUrl) && Objects.equals(userId, other.userId);
 	}
-	
-	
+
 }
